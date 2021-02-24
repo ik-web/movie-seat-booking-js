@@ -235,7 +235,7 @@ address {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    max-height: 170px;
+    max-height: 180px;
     overflow-y: auto;
     overflow-x: hidden;
     scrollbar-width: thin;
