@@ -13,3 +13,7 @@ Bonus task (optional):
 
 - Create a submit button and modal window.
 - In the modal window, display the number of seats and their cost.
+
+<hr>
+
+[Demo](https://ik-web.github.io/movie-seat-booking-js/)
