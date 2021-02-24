@@ -54,7 +54,8 @@ address {
     box-shadow: 2px 2px 20px 2px #000;
 }
 
-/* --------------------------------- */
+/* Movie info styles
+------------------------------------ */
 .movie-info__title {
     font-size: 40px;
 }
@@ -101,8 +102,8 @@ address {
 
 }
 
-
-/* --------------------------------- */
+/* Booking seats styles 
+------------------------------------ */
 .booking-seats {
     padding-top: 65px;
 }
@@ -189,7 +190,7 @@ address {
     justify-content: space-around;
     max-width: 500px;
     width: 100%;
-    margin: 60px auto;
+    margin: 50px auto;
 }
 
 .seats-status__item {
@@ -213,10 +214,39 @@ address {
 .seats-status__item--checked:before {background-color: var(--seat-checked-color);}
 .seats-status__item--unchecked:before {background-color: var(--seat-unchecked-color);}
 
+/* Seats checked styles
+------------------------------------ */
+.cinema-hall__seats-buy {  
+    max-width: 500px;
+    margin: 0 auto 30px;
+}
+
+.cinema-hall__seats-checked {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cinema-hall__seat-checked {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 300px;
+    margin: 5px 3px;
+    padding: 10px 0;
+    border: 1px solid var(--seat-unchecked-color);
+    border-radius: 5px;
+}
+
+.price-info {
+    padding: 4px 3px 2px 32px;
+    background: url(../img/price-tag.svg) left center no-repeat;
+}
+
 .cinema-hall__btn {
     display: block;
     width: 300px;
-    margin: 0 auto;
+    margin: 25px auto 0;
     padding: 10px;
     border: none;
     font-size: 18px;
