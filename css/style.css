@@ -14,6 +14,7 @@
     --btn-bg-color:  #1c2bff;
     --btn-hover-font-color: #fff;
     --btn-hover-bg-color: #020977;
+    --ticket-border-color: #5a5a5a;
 }
 
 /* Common styles 
@@ -31,6 +32,10 @@ img {
 
 li {
     list-style: none;
+}
+
+html, body {
+    overflow-x: hidden;
 }
 
 body {
@@ -216,37 +221,67 @@ address {
 
 /* Seats checked styles
 ------------------------------------ */
-.cinema-hall__seats-buy {  
-    max-width: 500px;
+.cinema-hall__tickets {  
+    display: none;
+    max-width: 350px;
     margin: 0 auto 30px;
 }
 
-.cinema-hall__seats-checked {
+.cinema-hall__tickets.active {
+    display: block;
+}
+
+.cinema-hall__ticket-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    max-height: 170px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
 }
 
-.cinema-hall__seat-checked {
+.cinema-hall__ticket-list::-webkit-scrollbar {
+    width: 6px;
+    background-color: var(--ticket-border-color);
+    border-radius: 4px;
+}
+
+.cinema-hall__ticket-list::-webkit-scrollbar-thumb {
+    background-color: var(--seat-checked-color);
+    border-radius: 4px;
+}
+
+.cinema-hall__ticket {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 300px;
-    margin: 5px 3px;
+    margin: 5px auto;
     padding: 10px 0;
-    border: 1px solid var(--seat-unchecked-color);
+    border: 1px solid var(--ticket-border-color);
     border-radius: 5px;
 }
 
-.price-info {
+.ticket-price {
     padding: 4px 3px 2px 32px;
     background: url(../img/price-tag.svg) left center no-repeat;
+}
+
+.cinema-hall__total {
+    width: 300px;
+    margin: 5px auto;
+    text-align: center;
+}
+
+.total-count {
+    margin-bottom: 5px;
 }
 
 .cinema-hall__btn {
     display: block;
     width: 300px;
-    margin: 25px auto 0;
+    margin: 10px auto 0;
     padding: 10px;
     border: none;
     font-size: 18px;
@@ -255,6 +290,7 @@ address {
     background-color: var(--btn-bg-color);
     border-radius: 5px;
     transition: background-color .15s linear;
+    cursor: pointer;
 }
 
 .cinema-hall__btn:hover {
@@ -342,5 +378,13 @@ address {
     .cinema-hall__seat {
         width: 20px;
         height: 25px;
+    }
+
+    .cinema-hall__ticket-list {
+        padding: 0 10px;
+    }
+
+    .cinema-hall__ticket {
+        width: 100%;
     }
 }
