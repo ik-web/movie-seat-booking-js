@@ -60,7 +60,30 @@ document.addEventListener('DOMContentLoaded', () => {
             };
             showTotalTicketsInfo(ticketsCount, ticketsCost);
             handleTicketList(ticketsCount);
+        });
+        
+        doClickButtons();
+    }
 
+    const doClickButtons = () => {
+        const modalWindow = document.querySelector('.modal');
+        doClickContinueButton(modalWindow);
+        doClickReturnButton(modalWindow);
+    };
+
+    const doClickContinueButton = modalWindow => {
+        const continueButton = document.querySelector('.cinema-hall__btn');
+
+        continueButton.addEventListener('click', () => {
+            modalWindow.classList.add('active');
+        });
+    }
+
+    const doClickReturnButton = modalWindow => {
+        const returnButton = document.querySelector('.button--return');
+
+        returnButton.addEventListener('click', () => {
+            modalWindow.classList.remove('active');
         });
     }
 
@@ -109,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const showTotalTicketsInfo = (ticketsCount, ticketsCost) => {
-        document.querySelector('.total-count').innerHTML = `Total ${ticketsCount === 1 ? 'ticket' : 'tickets'}: ${ticketsCount}`;
+        document.querySelector('.total-count').innerHTML = `Total ${ticketsCount === 1 ? 'seat' : 'seats'}: ${ticketsCount}`;
         document.querySelector('.total-cost').innerHTML = `Total cost: $${ticketsCost}`;
     };
 

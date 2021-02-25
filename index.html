@@ -9,6 +9,20 @@
 </head>
 
 <body>
+
+    <div class="modal">
+        <div class="modal__confirmation-window">
+            <div class="modal__info">
+                <p>Total selected seats: <span>4</span></p>
+                <p>Total cost: $<span>16</span></p>
+            </div>
+            <div class="modal__buttons">
+                <button class="modal__button button--return button">Return</button>
+                <button class="modal__button button--booking button" form="seats-form">Booking</button>
+            </div>
+        </div>
+    </div>
+
     <main class="main">
         <section class="movie-info">
             <h1 class="movie-info__title">Monster Hunter</h1>
@@ -52,11 +66,10 @@
                     <p class="total-count"></p>
                     <p class="total-cost"></p>
                 </div>
-                <button class="cinema-hall__btn" form="seats-form">Continue</button>
+                <button class="cinema-hall__btn button">Continue</button>
             </div>
 
         </section>
-
     </main>
 
     <script src="js/script.js" type="module"></script>
