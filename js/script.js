@@ -1,21 +1,65 @@
+import {seatsData} from './seats.js';
+
 document.addEventListener('DOMContentLoaded', () => {
 
-    const ticketPrice = 4;
-
     const startApp = () => {
-        bookingSeats();
+        const cinemaHall = document.querySelector('#seats-form');
+
+        addSeatsToPage(seatsData, cinemaHall);
+        doBookingSeats(cinemaHall);
     };
 
-    const bookingSeats = () => {
-        const cinemaHall = document.querySelector('#seats-form');
+    const addSeatsToPage = (seatsData, cinemaHall) => {
+
+        seatsData.forEach(rowData => {
+            const row = createRow();
+
+            rowData.forEach(seatData => {
+                row.innerHTML += createSeat(seatData);
+            });
+
+            cinemaHall.append(row);
+        })
+    }
+
+    const createRow = () => {
+        const row = document.createElement('ol');
+        row.classList.add('cinema-hall__row');
+        return row;
+    }
+
+    const createSeat = ({seatId, row, seat, price, booked}) => {
+        return `
+            <li>
+                <label>
+                    <input type="checkbox" class="cinema-hall__check" data-row="${row}" data-seat="${seat}" value="${seatId}" data-price="${price}" ${booked ? "disabled" : ""}>
+                    <span class="cinema-hall__seat">${seat}</span>
+                </label>
+            </li>
+        `;
+    }
+
+    const doBookingSeats = cinemaHall => {
+        let ticketsCount = 0;
+        let ticketsCost = 0;
 
         cinemaHall.addEventListener('change', ({target}) => {
             
             const seat = target.closest('input');
+            const ticketPrice = +seat.getAttribute('data-price');
+
             if (!seat) return;
-            if (seat.checked) addTicket(seat);
-            else removeTicket(seat);
-            ticketListHandler();
+            if (seat.checked) {
+                showTicket(seat);
+                ticketsCount++
+                ticketsCost += ticketPrice;
+            } else {
+                removeTicket(seat);
+                ticketsCount--
+                ticketsCost -= ticketPrice;
+            };
+            showTotalTicketsInfo(ticketsCount, ticketsCost);
+            handleTicketList(ticketsCount);
 
         });
     }
@@ -33,15 +77,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    const addTicket = seat => {
-        const ticketsList = document.querySelector('.cinema-hall__ticket-list');    
-        ticketsList.innerHTML += createTicket(createTicketInfo(seat));
-    };
-
-    const createTicketInfo = seat => {
+    const getTicketInfo = seat => {
         const ticketId = seat.value;
         const rowNumber = seat.getAttribute('data-row');
         const seatNumber = seat.getAttribute('data-seat');
+        const ticketPrice = seat.getAttribute('data-price');
         return {
             ticketId,
             rowNumber,
@@ -50,33 +90,35 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     };
 
+    const showTicket = seat => {
+        const ticketsList = document.querySelector('.cinema-hall__ticket-list');    
+        ticketsList.innerHTML += createTicket(getTicketInfo(seat));
+    };
+
     const removeTicket = ({value}) => {
         const ticket = document.querySelector(`[data-id="${value}"]`);
         ticket.remove();
     };
 
-    const showticketList = ticketList => {
+    const handleTicketList = ticketsCount => {
+        const ticketList = document.querySelector('.cinema-hall__tickets');
+        const activeTicketList = document.querySelector('.cinema-hall__tickets.active');
+        
+        if (ticketsCount > 0 && !activeTicketList) showTicketList(ticketList);
+        else if (ticketsCount === 0) hideTicketList(ticketList);
+    };
+
+    const showTotalTicketsInfo = (ticketsCount, ticketsCost) => {
+        document.querySelector('.total-count').innerHTML = `Total ${ticketsCount === 1 ? 'ticket' : 'tickets'}: ${ticketsCount}`;
+        document.querySelector('.total-cost').innerHTML = `Total cost: $${ticketsCost}`;
+    };
+
+    const showTicketList = ticketList => {
         ticketList.classList.add('active');
     };
 
-    const hideticketList = ticketList => {
+    const hideTicketList = ticketList => {
         ticketList.classList.remove('active');
-    };
-
-    const totalHandler = selectedTicketsCount => {
-        const ticketCount = document.querySelector('.total-count');
-        const ticketsCost = document.querySelector('.total-cost');
-        ticketCount.innerHTML = `Total ${selectedTicketsCount > 1 ? 'tickets' : 'ticket'}: ${selectedTicketsCount}`;
-        ticketsCost.innerHTML = `Total cost: $${selectedTicketsCount * ticketPrice}`;
-    };
-
-    const ticketListHandler = () => {
-        const selectedTicketsCount = document.querySelectorAll('.cinema-hall__ticket').length;
-        const ticketList = document.querySelector('.cinema-hall__tickets');
-        const activeTicketList = document.querySelector('.cinema-hall__tickets.active');
-        if (selectedTicketsCount > 0 && !activeTicketList) showticketList(ticketList);
-        else if (selectedTicketsCount === 0) hideticketList(ticketList);
-        totalHandler(selectedTicketsCount);
     };
 
     startApp();

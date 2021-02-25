@@ -150,7 +150,6 @@ address {
 
 .cinema-hall__row {
     display: flex;
-    gap: 5px;
     margin-bottom: 10px;
 }
 
@@ -185,6 +184,7 @@ address {
     align-items: center;
     width: 35px;
     height: 48px;
+    margin: 0 3px;
     border-radius: 5px;
     border: 1px solid var(--common-border-color);
     background-color: var(--seat-unchecked-color);
