@@ -144,8 +144,8 @@ address {
 
 .cinema-hall__seats {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cinema-hall__row {
