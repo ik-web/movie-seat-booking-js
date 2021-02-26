@@ -44,12 +44,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const modalInfo = document.querySelector('.modal__info');
         let selectedSeatsCount = 0;
         let selectedSeatsCost = 0;
-
+        
         cinemaHall.addEventListener('change', ({target}) => {
             
             const seat = target.closest('input');
             const seatPrice = +seat.getAttribute('data-price');
-
+            
             if (!seat) return;
             if (seat.checked) {
                 showSelectedSeat(seat);
@@ -60,10 +60,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedSeatsCount--
                 selectedSeatsCost -= seatPrice;
             };
-
+            
             let totalSelectedSeatsInfo = getTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost);
             showTotalSelectedSeatsInfo(selectedSeatsTotal, totalSelectedSeatsInfo);
-            handleSelectedSeatsList(selectedSeatsCount);
+            handleSelectedSeatsBlock(selectedSeatsCount);
             if (doClickButtonContinue) showTotalSelectedSeatsInfo(modalInfo, totalSelectedSeatsInfo);
         });
         
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    const addSelectedSeat = ({selectedSeatId, rowNumber, seatNumber, selectedSeatPrice}) => {
+    const createSelectedSeat = ({selectedSeatId, rowNumber, seatNumber, selectedSeatPrice}) => {
         return `
             <div class="cinema-hall__selected-seat" data-id="${selectedSeatId}">
                 <div class="seat-info">
@@ -106,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     };
 
-    const getSelectedSeat = seat => {
+    const getSelectedSeatInfo = seat => {
         const selectedSeatId = seat.value;
         const rowNumber = seat.getAttribute('data-row');
         const seatNumber = seat.getAttribute('data-seat');
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const showSelectedSeat = seat => {
         const selectedSeatsList = document.querySelector('.cinema-hall__selected-seats-list');
-        selectedSeatsList.innerHTML += addSelectedSeat(getSelectedSeat(seat));
+        selectedSeatsList.innerHTML += createSelectedSeat(getSelectedSeatInfo(seat));
     };
 
     const removeSelectedSeat = ({value}) => {
@@ -129,12 +129,12 @@ document.addEventListener('DOMContentLoaded', () => {
         selectedSeat.remove();
     };
 
-    const handleSelectedSeatsList = selectedSeatsCount => {
-        const selectedSeatsList = document.querySelector('.cinema-hall__selected-seats');
-        const activeSelectedSeatsList = document.querySelector('.cinema-hall__selected-seats.active');
+    const handleSelectedSeatsBlock = selectedSeatsCount => {
+        const selectedSeatsBlock = document.querySelector('.cinema-hall__selected-seats-block');
+        const activeSelectedSeatsBlock = document.querySelector('.cinema-hall__selected-seats-block.active');
         
-        if (selectedSeatsCount > 0 && !activeSelectedSeatsList) showSelectedSeatsList(selectedSeatsList);
-        else if (selectedSeatsCount === 0) hideSelectedSeatsList(selectedSeatsList);
+        if (selectedSeatsCount > 0 && !activeSelectedSeatsBlock) showSelectedSeatsBlock(selectedSeatsBlock);
+        else if (selectedSeatsCount === 0) hideSelectedSeatsBlock(selectedSeatsBlock);
     };
 
     const showTotalSelectedSeatsInfo = (pageElement, totalSelectedSeatsInfo) => {
@@ -143,17 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const getTotalSelectedSeatsInfo = (selectedSeatsCount, selectedSeatsCost) => {
         return `
-            <p>Total selected ${selectedSeatsCount === 1 ? 'seat' : 'seats'}: ${selectedSeatsCount}</p>
+            <p>Total selected seats: ${selectedSeatsCount}</p>
             <p>Total cost: $${selectedSeatsCost}</p>
         `;
     };
 
-    const showSelectedSeatsList = selectedSeatsList => {
-        selectedSeatsList.classList.add('active');
+    const showSelectedSeatsBlock = selectedSeatsBlock => {
+        selectedSeatsBlock.classList.add('active');
     };
 
-    const hideSelectedSeatsList = selectedSeatsList => {
-        selectedSeatsList.classList.remove('active');
+    const hideSelectedSeatsBlock = selectedSeatsBlock => {
+        selectedSeatsBlock.classList.remove('active');
     };
 
     startApp();

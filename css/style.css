@@ -221,13 +221,13 @@ address {
 
 /* Seats checked styles
 ------------------------------------ */
-.cinema-hall__selected-seats {  
+.cinema-hall__selected-seats-block {  
     display: none;
     max-width: 350px;
     margin: 0 auto 30px;
 }
 
-.cinema-hall__selected-seats.active {
+.cinema-hall__selected-seats-block.active {
     display: block;
 }
 
@@ -396,7 +396,7 @@ address {
         padding-top: 30px;
     }
 
-    .cinema-hall__btn {
+    .cinema-hall__button {
         width: 100%;
         padding: 15px;
         font-size: 22px;
@@ -422,11 +422,11 @@ address {
         height: 25px;
     }
 
-    .cinema-hall__ticket-list {
+    .cinema-hall__selected-seats-list {
         padding: 0 10px;
     }
 
-    .cinema-hall__ticket {
+    .cinema-hall__selected-seat {
         width: 100%;
     }
 
