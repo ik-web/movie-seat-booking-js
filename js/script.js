@@ -40,108 +40,118 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const doBookingSeats = cinemaHall => {
-        let ticketsCount = 0;
-        let ticketsCost = 0;
+        const selectedSeatsTotal = document.querySelector('.cinema-hall__seats-total');
+        const modal = document.querySelector('.modal__info');
+        let selectedSeatsCount = 0;
+        let selectedSeatsCost = 0;
 
         cinemaHall.addEventListener('change', ({target}) => {
             
             const seat = target.closest('input');
-            const ticketPrice = +seat.getAttribute('data-price');
+            const seatPrice = +seat.getAttribute('data-price');
 
             if (!seat) return;
             if (seat.checked) {
-                showTicket(seat);
-                ticketsCount++
-                ticketsCost += ticketPrice;
+                showSelectedSeat(seat);
+                selectedSeatsCount++
+                selectedSeatsCost += seatPrice;
             } else {
-                removeTicket(seat);
-                ticketsCount--
-                ticketsCost -= ticketPrice;
+                removeSelectedSeat(seat);
+                selectedSeatsCount--
+                selectedSeatsCost -= seatPrice;
             };
-            showTotalTicketsInfo(ticketsCount, ticketsCost);
-            handleTicketList(ticketsCount);
+            showTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost, selectedSeatsTotal);
+            showTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost, modal);
+            handleSelectedSeatsList(selectedSeatsCount);
         });
         
         doClickButtons();
+
     }
 
     const doClickButtons = () => {
         const modalWindow = document.querySelector('.modal');
-        doClickContinueButton(modalWindow);
-        doClickReturnButton(modalWindow);
+        doClickButtonContinue(modalWindow);
+        doClickButtonReturn(modalWindow);
     };
 
-    const doClickContinueButton = modalWindow => {
-        const continueButton = document.querySelector('.cinema-hall__btn');
+    const doClickButtonContinue = modalWindow => {
+        const buttonContinue = document.querySelector('.cinema-hall__button');
 
-        continueButton.addEventListener('click', () => {
+        buttonContinue.addEventListener('click', () => {
             modalWindow.classList.add('active');
         });
     }
 
-    const doClickReturnButton = modalWindow => {
-        const returnButton = document.querySelector('.button--return');
+    const doClickButtonReturn = modalWindow => {
+        const buttonReturn = document.querySelector('.button--return');
 
-        returnButton.addEventListener('click', () => {
+        buttonReturn.addEventListener('click', () => {
             modalWindow.classList.remove('active');
         });
     }
 
-    const createTicket = ({ticketId, rowNumber, seatNumber, ticketPrice}) => {
+    const addSelectedSeat = ({selectedSeatId, rowNumber, seatNumber, selectedSeatPrice}) => {
         return `
-            <div class="cinema-hall__ticket" data-id="${ticketId}">
+            <div class="cinema-hall__selected-seat" data-id="${selectedSeatId}">
                 <div class="seat-info">
                     Row: <span class="seat-info__row">${rowNumber}</span> --- Seat: <span class="seat-info__seat">${seatNumber}</span>
                 </div>
-                <div class="ticket-price">
-                    ${ticketPrice}
+                <div class="seat-price">
+                    ${selectedSeatPrice}
                 </div>
             </div>
         `;
     };
 
-    const getTicketInfo = seat => {
-        const ticketId = seat.value;
+    const getSelectedSeat = seat => {
+        const selectedSeatId = seat.value;
         const rowNumber = seat.getAttribute('data-row');
         const seatNumber = seat.getAttribute('data-seat');
-        const ticketPrice = seat.getAttribute('data-price');
+        const selectedSeatPrice = seat.getAttribute('data-price');
         return {
-            ticketId,
+            selectedSeatId,
             rowNumber,
             seatNumber,
-            ticketPrice
+            selectedSeatPrice
         };
     };
 
-    const showTicket = seat => {
-        const ticketsList = document.querySelector('.cinema-hall__ticket-list');    
-        ticketsList.innerHTML += createTicket(getTicketInfo(seat));
+    const showSelectedSeat = seat => {
+        const selectedSeatsList = document.querySelector('.cinema-hall__selected-seats-list');
+        selectedSeatsList.innerHTML += addSelectedSeat(getSelectedSeat(seat));
     };
 
-    const removeTicket = ({value}) => {
-        const ticket = document.querySelector(`[data-id="${value}"]`);
-        ticket.remove();
+    const removeSelectedSeat = ({value}) => {
+        const selectedSeat = document.querySelector(`[data-id="${value}"]`);
+        selectedSeat.remove();
     };
 
-    const handleTicketList = ticketsCount => {
-        const ticketList = document.querySelector('.cinema-hall__tickets');
-        const activeTicketList = document.querySelector('.cinema-hall__tickets.active');
+    const handleSelectedSeatsList = selectedSeatsCount => {
+        const selectedSeatsList = document.querySelector('.cinema-hall__selected-seats');
+        const activeSelectedSeatsList = document.querySelector('.cinema-hall__selected-seats.active');
         
-        if (ticketsCount > 0 && !activeTicketList) showTicketList(ticketList);
-        else if (ticketsCount === 0) hideTicketList(ticketList);
+        if (selectedSeatsCount > 0 && !activeSelectedSeatsList) showSelectedSeatsList(selectedSeatsList);
+        else if (selectedSeatsCount === 0) hideSelectedSeatsList(selectedSeatsList);
     };
 
-    const showTotalTicketsInfo = (ticketsCount, ticketsCost) => {
-        document.querySelector('.total-count').innerHTML = `Total ${ticketsCount === 1 ? 'seat' : 'seats'}: ${ticketsCount}`;
-        document.querySelector('.total-cost').innerHTML = `Total cost: $${ticketsCost}`;
+    const showTotalSelectedSeatsInfo = (selectedSeatsCount, selectedSeatsCost, pageElement) => {
+        pageElement.innerHTML = getTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost);
     };
 
-    const showTicketList = ticketList => {
-        ticketList.classList.add('active');
+    const getTotalSelectedSeatsInfo = (selectedSeatsCount, selectedSeatsCost) => {
+        return `
+            <p>Total selected ${selectedSeatsCount === 1 ? 'seat' : 'seats'}: ${selectedSeatsCount}</p>
+            <p>Total cost: $${selectedSeatsCost}</p>
+        `;
     };
 
-    const hideTicketList = ticketList => {
-        ticketList.classList.remove('active');
+    const showSelectedSeatsList = selectedSeatsList => {
+        selectedSeatsList.classList.add('active');
+    };
+
+    const hideSelectedSeatsList = selectedSeatsList => {
+        selectedSeatsList.classList.remove('active');
     };
 
     startApp();

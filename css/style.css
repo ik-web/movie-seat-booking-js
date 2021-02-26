@@ -221,17 +221,17 @@ address {
 
 /* Seats checked styles
 ------------------------------------ */
-.cinema-hall__tickets {  
+.cinema-hall__selected-seats {  
     display: none;
     max-width: 350px;
     margin: 0 auto 30px;
 }
 
-.cinema-hall__tickets.active {
+.cinema-hall__selected-seats.active {
     display: block;
 }
 
-.cinema-hall__ticket-list {
+.cinema-hall__selected-seats-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -241,18 +241,18 @@ address {
     scrollbar-width: thin;
 }
 
-.cinema-hall__ticket-list::-webkit-scrollbar {
+.cinema-hall__selected-seats-list::-webkit-scrollbar {
     width: 6px;
     background-color: var(--ticket-border-color);
     border-radius: 4px;
 }
 
-.cinema-hall__ticket-list::-webkit-scrollbar-thumb {
+.cinema-hall__selected-seats-list::-webkit-scrollbar-thumb {
     background-color: var(--seat-checked-color);
     border-radius: 4px;
 }
 
-.cinema-hall__ticket {
+.cinema-hall__selected-seat {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -263,19 +263,15 @@ address {
     border-radius: 5px;
 }
 
-.ticket-price {
+.seat-price {
     padding: 4px 3px 2px 32px;
     background: url(../img/price-tag.svg) left center no-repeat;
 }
 
-.cinema-hall__total {
-    width: 300px;
-    margin: 5px auto;
+.cinema-hall__seats-total {
+    margin: 10px 0 15px;
     text-align: center;
-}
-
-.total-count {
-    margin-bottom: 5px;
+    line-height: 1.5;
 }
 
 .button {
@@ -299,10 +295,10 @@ address {
     background-color: var(--btn-hover-bg-color);
 }
 
-.cinema-hall__btn {
+.cinema-hall__button {
     display: block;
     width: 300px;
-    margin: 10px auto 0;
+    margin: 0 auto;
 }
 
 /* Confirmation window styles
@@ -326,21 +322,17 @@ address {
 }
 
 .modal__confirmation-window {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 600px;
-    height: 70%;
+    padding: 40px;
+    text-align: center;
     background-color: var(--main-bg-color);
     border-radius: 10px;
     box-shadow: 2px 2px 20px 2px #000;
 }
 
 .modal__info {
-    margin-bottom: 30px;
-    text-align: center;
+    margin-bottom: 40px;
     font-size: 26px;
+    line-height: 1.5;
 }
 
 .modal__button {
@@ -436,5 +428,9 @@ address {
 
     .cinema-hall__ticket {
         width: 100%;
+    }
+
+    .modal__confirmation-window {
+        padding: 40px 10px;
     }
 }
