@@ -268,7 +268,7 @@ address {
     background: url(../img/price-tag.svg) left center no-repeat;
 }
 
-.cinema-hall__seats-total {
+.cinema-hall__seats-total-info {
     margin: 10px 0 15px;
     text-align: center;
     line-height: 1.5;

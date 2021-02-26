@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const doBookingSeats = cinemaHall => {
-        const selectedSeatsTotal = document.querySelector('.cinema-hall__seats-total');
-        const modal = document.querySelector('.modal__info');
+        const selectedSeatsTotal = document.querySelector('.cinema-hall__seats-total-info');
+        const modalInfo = document.querySelector('.modal__info');
         let selectedSeatsCount = 0;
         let selectedSeatsCost = 0;
 
@@ -60,9 +60,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 selectedSeatsCount--
                 selectedSeatsCost -= seatPrice;
             };
-            showTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost, selectedSeatsTotal);
-            showTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost, modal);
+
+            let totalSelectedSeatsInfo = getTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost);
+            showTotalSelectedSeatsInfo(selectedSeatsTotal, totalSelectedSeatsInfo);
             handleSelectedSeatsList(selectedSeatsCount);
+            if (doClickButtonContinue) showTotalSelectedSeatsInfo(modalInfo, totalSelectedSeatsInfo);
         });
         
         doClickButtons();
@@ -135,8 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (selectedSeatsCount === 0) hideSelectedSeatsList(selectedSeatsList);
     };
 
-    const showTotalSelectedSeatsInfo = (selectedSeatsCount, selectedSeatsCost, pageElement) => {
-        pageElement.innerHTML = getTotalSelectedSeatsInfo(selectedSeatsCount, selectedSeatsCost);
+    const showTotalSelectedSeatsInfo = (pageElement, totalSelectedSeatsInfo) => {
+        pageElement.innerHTML = totalSelectedSeatsInfo;
     };
 
     const getTotalSelectedSeatsInfo = (selectedSeatsCount, selectedSeatsCost) => {
