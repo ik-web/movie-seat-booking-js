@@ -316,7 +316,7 @@ address {
     height: 100%;
     opacity: 0;
     background-color: var(--body-bg-color);
-    transition: opacity .1s linear;
+    transition: opacity .1s linear, z-index .1s linear;
 }
 
 .modal.active {
